@@ -19,7 +19,6 @@ public class UserService {
 
     Connection connection = null;
     private static final Logger Log = LoggerFactory.getLogger(LoginService.class);
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -52,7 +51,6 @@ public class UserService {
                     //Response successResponse = new Response();
                     registrationResponse.setStatus("SUCCESS");
                     registrationResponse.setUsername(user.getUsername());
-                    return registrationResponse;
 
                 }
 
@@ -68,7 +66,6 @@ public class UserService {
             Log.error("Error occurred: " + e.getMessage());
             registrationResponse.setStatus("FAILED");
             registrationResponse.setUsername("There was an error while registering user");
-            return registrationResponse;
         }
 
         return registrationResponse;
