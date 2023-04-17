@@ -1,9 +1,7 @@
 package arnaud.projects.bookingsystem.Controller;
 
-import arnaud.projects.bookingsystem.Models.CatchResponse;
-import arnaud.projects.bookingsystem.Models.LoginResponse;
-import arnaud.projects.bookingsystem.Models.RegistrationResponse;
-import arnaud.projects.bookingsystem.Models.User;
+import arnaud.projects.bookingsystem.Models.*;
+import arnaud.projects.bookingsystem.service.BookingService;
 import arnaud.projects.bookingsystem.service.LoginService;
 import arnaud.projects.bookingsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,8 @@ public class AppController {
     private UserService userService;
     @Autowired
     private LoginService loginService;
+    @Autowired
+    private BookingService bookingService;
 
     @PostMapping(value = "/register/user")
     public ResponseEntity<Object> userRegistration(@RequestBody User user) throws SQLException {
@@ -63,4 +63,21 @@ public class AppController {
         }
         else return new ResponseEntity<>("An error occurred",HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @PostMapping("new")
+    public ResponseEntity<Object> newBooking(@RequestBody Booking booking){
+        Object result = bookingService.createBooking(booking);
+
+        if (result instanceof BookingResponse bookingResponse){
+            if (bookingResponse.getStatus().equals("SUCCESS")){
+                return new ResponseEntity<>(bookingResponse,HttpStatus.CREATED);
+            }
+            else return new ResponseEntity<>(bookingResponse,HttpStatus.UNAUTHORIZED);
+        }
+        else if (result instanceof CatchResponse catchResponse){
+            return new ResponseEntity<>(catchResponse,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        else return new ResponseEntity<>("An error occurred ",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

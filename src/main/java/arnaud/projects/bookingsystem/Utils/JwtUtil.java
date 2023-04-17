@@ -1,8 +1,9 @@
-package arnaud.projects.bookingsystem.service;
+package arnaud.projects.bookingsystem.Utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.experimental.UtilityClass;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;

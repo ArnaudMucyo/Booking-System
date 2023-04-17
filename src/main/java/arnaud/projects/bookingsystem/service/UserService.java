@@ -22,6 +22,7 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     public Object registerUser(User user) throws SQLException {
 
         RegistrationResponse registrationResponse = new RegistrationResponse();
